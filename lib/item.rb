@@ -1,4 +1,5 @@
 require "bigdecimal"
+require "pry"
 
 class Item
   attr_reader :id,
@@ -7,10 +8,9 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id,
-              :item_repository
+              :merchant_id
 
-  def initialize(hash, item_respository)
+  def initialize(hash, item_repository)
     @id = hash[:id].to_i
     @name = hash[:name]
     @description = hash[:description]
@@ -23,6 +23,11 @@ class Item
 
   def unit_price_to_dollars
     (@unit_price/100).to_f
+  end
+
+  def merchant
+    # binding.pry
+    @item_repository.sales_engine.merchants.find_by_id(@merchant_id)
   end
 
 end

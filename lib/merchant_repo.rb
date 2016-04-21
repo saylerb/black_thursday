@@ -2,7 +2,7 @@ require "csv"
 require_relative "merchant"
 
 class MerchantRepo
-  attr_reader :all_merchants
+  attr_reader :all_merchants, :sales_engine
 
   def initialize(file_name, sales_engine)
     @all_merchants = load_csv(file_name)
