@@ -51,11 +51,9 @@ class SalesAnalyst
   def golden_items
     price_std = price_standard_deviation
     cutoff = @mean_item_price + ((price_std) * 2)
-    # require "pry"; binding.pry
     @sales_engine.items.all.find_all do |item|
       item.unit_price > cutoff
     end
-    # => [<item>, <item>, <item>, <item>]
   end
 
   def average_item_price

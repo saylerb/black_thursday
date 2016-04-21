@@ -32,13 +32,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_gets_merchant_for_item
-    skip
     item = se.items.find_by_id(263423833)
     assert item.name.include?("Original")
     assert_equal "JUSTEmonsters", item.merchant.name
-    # puts item.merchant.inspect
-    # sa = SalesAnalyst.new
-    # sa.average_items_per_merchant()
   end
 
   def test_it_finds_average_items_per_merchant
@@ -67,13 +63,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_calculates_average_item_price
     assert_kind_of BigDecimal, sa.average_item_price
-    puts sa.average_item_price.to_f
-
   end
 
   def test_it_finds_golden_items
     assert_kind_of Array, sa.golden_items
-    # sa.golden_items.each { |item| puts item.name }
   end
 
 end
