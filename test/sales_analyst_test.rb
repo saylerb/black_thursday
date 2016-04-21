@@ -61,9 +61,19 @@ class SalesAnalystTest < Minitest::Test
     assert_kind_of BigDecimal, sa.average_average_price_per_merchant
   end
 
-  def test_it_finds_golden_items
+  def test_if_calculates_item_price_std_diviation
+    assert_kind_of Numeric, sa.price_standard_deviation
   end
 
+  def test_calculates_average_item_price
+    assert_kind_of BigDecimal, sa.average_item_price
+    puts sa.average_item_price.to_f
 
+  end
+
+  def test_it_finds_golden_items
+    assert_kind_of Array, sa.golden_items
+    # sa.golden_items.each { |item| puts item.name }
+  end
 
 end
