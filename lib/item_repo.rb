@@ -4,8 +4,9 @@ class ItemRepo
 
   attr_reader :items
 
-  def initialize(file_name)
+  def initialize(file_name, sales_engine)
     @all_items = load_csv(file_name)
+    @sales_engine = sales_engine
   end
 
   def load_csv(file_name)
@@ -19,7 +20,7 @@ class ItemRepo
                 :merchant_id => row[:merchant_id],
                 :created_at => row[:created_at],
                 :updated_at => row[:updated_at]
-              })
+              }, self)
     end
     result
   end

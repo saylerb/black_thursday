@@ -6,8 +6,8 @@ class SalesEngine
   attr_accessor :merchants, :items
 
   def initialize(file_names)
-    @merchants = MerchantRepo.new(file_names[:merchants])
-    @items = ItemRepo.new(file_names[:items])
+    @merchants = MerchantRepo.new(file_names[:merchants], self)
+    @items = ItemRepo.new(file_names[:items], self)
   end
 
   def self.from_csv(file_names)

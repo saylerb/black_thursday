@@ -5,7 +5,7 @@ require "csv"
 class ItemRepoTest < Minitest::Test
 
   def setup
-    @repo = ItemRepo.new("./data/items.csv")
+    @repo = ItemRepo.new("./data/items.csv", nil)
   end
 
   def test_repo_exists
