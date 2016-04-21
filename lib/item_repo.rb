@@ -21,7 +21,6 @@ class ItemRepo
                 :created_at => row[:created_at],
                 :updated_at => row[:updated_at]}, self)
     end
-
   end
 
   def all
@@ -68,6 +67,10 @@ class ItemRepo
     @all_items.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 
 end
