@@ -1,10 +1,19 @@
+require_relative "sales_engine"
+
 class SalesAnalyst
 
-  def initialize
+  attr_reader :sales_engine
+  
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
   end
 
   def average_items_per_merchant(merchant_id)
-    # => 2.88
+
+    #need total # of items for a given merchant
+    #divide by
+
+    #to float => 2.88
   end
 
   def average_items_per_merchant_standard_deviation(merchant_id)

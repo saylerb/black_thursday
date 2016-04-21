@@ -13,7 +13,7 @@ class ItemTest < Minitest::Test
       :unit_price  => "10.99",
       :created_at  => @time,
       :updated_at  => @time,
-    })
+    }, nil)
   end
 
   def test_it_exists
@@ -28,7 +28,7 @@ class ItemTest < Minitest::Test
     assert_equal Time.parse(@time), @i.updated_at
   end
 
-  def test_if_can_convert_price_to_dollars
+  def test_it_can_convert_price_to_dollars
     assert_kind_of Float, @i.unit_price_to_dollars
   end
 

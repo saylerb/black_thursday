@@ -1,27 +1,27 @@
 require_relative "item"
-
+require "pry"
 class ItemRepo
 
-  attr_reader :items
+  attr_reader :all_items, :sales_engine
 
-  def initialize(file_name)
+  def initialize(file_name, sales_engine)
     @all_items = load_csv(file_name)
+    @sales_engine = sales_engine
   end
 
   def load_csv(file_name)
     contents = CSV.open file_name, headers: true, header_converters: :symbol
 
-    result = contents.map do |row|
+    contents.map do |row|
       Item.new({:id => row[:id],
                 :name => row[:name],
                 :description => row[:description],
                 :unit_price => row[:unit_price],
                 :merchant_id => row[:merchant_id],
                 :created_at => row[:created_at],
-                :updated_at => row[:updated_at]
-              })
+                :updated_at => row[:updated_at]}, self)
     end
-    result
+
   end
 
   def all

@@ -2,17 +2,18 @@ require "csv"
 require_relative "merchant"
 
 class MerchantRepo
-  attr_reader :all_merchants
+  attr_reader :all_merchants, :sales_engine
 
-  def initialize(file_name)
+  def initialize(file_name, sales_engine)
     @all_merchants = load_csv(file_name)
+    @sales_engine = sales_engine
   end
 
   def load_csv(file_name)
     contents = CSV.open file_name, headers: true, header_converters: :symbol
 
     result = contents.map do |row|
-      Merchant.new({:id => row[:id], :name => row[:name]})
+      Merchant.new({:id => row[:id], :name => row[:name]}, self)
     end
     result
   end

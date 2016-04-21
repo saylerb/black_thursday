@@ -5,7 +5,7 @@ require "csv"
 class MerchantRepoTest < Minitest::Test
 
   def setup
-    @repo = MerchantRepo.new("./data/merchants.csv")
+    @repo = MerchantRepo.new("./data/merchants.csv", nil)
   end
 
   def test_repo_exists
