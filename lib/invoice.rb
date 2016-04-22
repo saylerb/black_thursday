@@ -1,3 +1,5 @@
+require "time"
+
 class Invoice
 
   attr_reader :id,
@@ -11,10 +13,14 @@ class Invoice
     @id = row[:id].to_i
     @customer_id = row[:customer_id].to_i
     @merchant_id = row[:merchant_id].to_i
-    @status = row[:status]
-    @created_at = Date.parse(row[:created_at])
-    @updated_at = Date.parse(row[:updated_at])
+    @status = row[:status].to_sym
+    @created_at = Time.parse(row[:created_at])
+    @updated_at = Time.parse(row[:updated_at])
+    @invoice_repository = invoice_repository
+  end
 
+  def merchant
+    @invoice_repository.find_merchant_by_merchant_id(@merchant_id)
   end
 
 end

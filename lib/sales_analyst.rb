@@ -7,10 +7,11 @@ class SalesAnalyst
   def initialize(sales_engine_object)
 
     @sales_engine = sales_engine_object
-    @total_items = @sales_engine.items.all.length
-    @total_merchants = @sales_engine.merchants.all.length
+    @total_items = @sales_engine.items.all.length #does not like length
+    @total_merchants = @sales_engine.merchants.all.length #does not like length
     @mean_merchant_items = average_items_per_merchant
     @mean_item_price = average_item_price
+    # @total_invoices = @sales_engine.invoice.all.length
   end
 
   def average_items_per_merchant
@@ -70,12 +71,17 @@ class SalesAnalyst
     Math.sqrt(squares.reduce(:+) / (@total_items - 1)).round(2)
   end
 
-  # def average_invoices_per_merchant
-  #   total_merchants = @sales_engine.invoices.find_by_id(merchant_id).invoices.length
-  #   total_invoices = @sales_engine.invoices.find_by_id(id).invoices.reduce(0) do |sum, item|
-  #     sum += item.invoice
-  #   end
-  #   (total_merchants / total_invoices).round(2)
-  # end
+  def average_invoices_per_merchant
+
+    # numerator = @total_invoices.to_f
+    # denominator = @sales_engine.invoice.all.length
+    # (numerator/denominator).round(2)
+
+    total_merchants = @sales_engine.merchants.find_by_id(merchant_id).invoices.length
+    total_invoices = @sales_engine.invoices.find_by_id(id).invoice.reduce(0) do |sum, item|
+      sum += item.invoices
+    end
+    (total_invoices / total_merchants).round(2)
+  end
 
 end

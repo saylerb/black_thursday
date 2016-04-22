@@ -70,4 +70,8 @@ class SalesAnalystTest < Minitest::Test
     assert_kind_of Array, sa.golden_items
   end
 
+  def test_it_finds_average_number_of_invoices_per_merchant
+    assert_kind_of BigDecimal, sa.average_item_price_for_merchant(12334165)
+  end
+
 end

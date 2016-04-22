@@ -21,4 +21,8 @@ class InvoiceTest < Minitest::Test
     assert @invoice
   end
 
+  def test_it_find_merchant_in_invoice
+    puts @invoice.merchant
+  end
+
 end

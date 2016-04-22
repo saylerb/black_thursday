@@ -42,4 +42,5 @@ class InvoiceRepoTest < Minitest::Test
     assert total, pending + returned + shipped
   end
 
+
 end
