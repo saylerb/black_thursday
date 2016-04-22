@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "minitest/pride"
 require "./lib/sales_analyst"
 require "./lib/sales_engine"
 
@@ -9,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      })
+      :invoices  => "./data/invoices.csv"})
     @sa = SalesAnalyst.new(se)
   end
 

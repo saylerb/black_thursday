@@ -70,4 +70,12 @@ class SalesAnalyst
     Math.sqrt(squares.reduce(:+) / (@total_items - 1)).round(2)
   end
 
+  # def average_invoices_per_merchant
+  #   total_merchants = @sales_engine.invoices.find_by_id(merchant_id).invoices.length
+  #   total_invoices = @sales_engine.invoices.find_by_id(id).invoices.reduce(0) do |sum, item|
+  #     sum += item.invoice
+  #   end
+  #   (total_merchants / total_invoices).round(2)
+  # end
+
 end

@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "minitest/pride"
 require "./lib/merchant_repo"
 require "csv"
 

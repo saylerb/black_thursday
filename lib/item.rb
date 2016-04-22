@@ -10,14 +10,14 @@ class Item
               :updated_at,
               :merchant_id
 
-  def initialize(hash, item_repository)
-    @id = hash[:id].to_i
-    @name = hash[:name]
-    @description = hash[:description]
-    @unit_price = BigDecimal.new(hash[:unit_price])/100
-    @created_at = Time.parse(hash[:created_at])
-    @updated_at = Time.parse(hash[:updated_at])
-    @merchant_id = hash[:merchant_id].to_i
+  def initialize(row, item_repository)
+    @id = row[:id].to_i
+    @name = row[:name]
+    @description = row[:description]
+    @unit_price = BigDecimal.new(row[:unit_price])/100
+    @created_at = Time.parse(row[:created_at])
+    @updated_at = Time.parse(row[:updated_at])
+    @merchant_id = row[:merchant_id].to_i
     @item_repository = item_repository
   end
 
