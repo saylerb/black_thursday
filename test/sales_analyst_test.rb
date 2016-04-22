@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"})
+      :invoices  => "./data/invoices_sample.csv"})
     @sa = SalesAnalyst.new(se)
   end
 
@@ -72,6 +72,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_finds_average_number_of_invoices_per_merchant
     assert_kind_of BigDecimal, sa.average_item_price_for_merchant(12334165)
+    puts sa.average_invoices_per_merchant.inspect
   end
 
 end

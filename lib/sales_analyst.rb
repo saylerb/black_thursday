@@ -11,7 +11,7 @@ class SalesAnalyst
     @total_merchants = @sales_engine.merchants.all.length #does not like length
     @mean_merchant_items = average_items_per_merchant
     @mean_item_price = average_item_price
-    # @total_invoices = @sales_engine.invoice.all.length
+    @total_invoices = @sales_engine.invoices.all.length
   end
 
   def average_items_per_merchant
@@ -72,11 +72,15 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    total_merchants = @sales_engine.merchants.find_by_id(merchant_id).invoices.length
-    total_invoices = @sales_engine.invoices.find_by_id(id).invoice.reduce(0) do |sum, item|
-      sum += item.invoices
+    invoices_per_merchant = @sales_engine.merchants.all.map do |merchant|
+      @sales_engine.invoices.find_all_by_merchant_id(merchant.id).length
     end
-    (total_invoices / total_merchants).round(2)
+    invoices_per_merchant.reduce(:+) / @total_merchants
+
+    # total_invoices = @sales_engine.invoices.invoice.reduce(0) do |sum, item|
+      # sum += item.invoices
+    # end
+    # (total_invoices / total_merchants).round(2)
   end
 
 end
