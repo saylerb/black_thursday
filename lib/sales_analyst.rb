@@ -72,11 +72,6 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-
-    # numerator = @total_invoices.to_f
-    # denominator = @sales_engine.invoice.all.length
-    # (numerator/denominator).round(2)
-
     total_merchants = @sales_engine.merchants.find_by_id(merchant_id).invoices.length
     total_invoices = @sales_engine.invoices.find_by_id(id).invoice.reduce(0) do |sum, item|
       sum += item.invoices
