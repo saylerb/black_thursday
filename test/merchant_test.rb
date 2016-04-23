@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "minitest/pride"
 require "./lib/merchant"
 require "csv"
 
@@ -19,4 +20,4 @@ class MerchantTest < Minitest::Test
     assert_equal 5, merch.id
   end
 
-  end
+end

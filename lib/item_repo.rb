@@ -1,5 +1,6 @@
 require_relative "item"
 require "pry"
+
 class ItemRepo
 
   attr_reader :all_items, :sales_engine

@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "minitest/pride"
 require "./lib/item"
 require "csv"
 require "bigdecimal"

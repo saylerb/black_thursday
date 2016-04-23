@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "minitest/pride"
 require "./lib/sales_analyst"
 require "./lib/sales_engine"
 
@@ -9,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      })
+      :invoices  => "./data/invoices.csv"})
     @sa = SalesAnalyst.new(se)
   end
 
@@ -68,5 +69,14 @@ class SalesAnalystTest < Minitest::Test
   def test_it_finds_golden_items
     assert_kind_of Array, sa.golden_items
   end
+
+  def test_it_finds_average_number_of_invoices_per_merchant
+    assert_kind_of Numeric, sa.average_invoices_per_merchant
+  end
+
+  def test_it_finds_average_invoices_per_merchant_std_deviation
+    assert_kind_of Float, sa.average_invoices_per_merchant
+  end
+
 
 end
