@@ -27,8 +27,6 @@ class Item
   end
 
   def merchant
-    # binding.pry
-    # @item_repository.sales_engine.merchants.find_by_id(@merchant_id)
     @item_repository.find_merchant_by_merchant_id(@merchant_id)
   end
 
