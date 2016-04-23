@@ -2,16 +2,17 @@ require_relative "sales_engine"
 
 class SalesAnalyst
 
-  attr_reader :sales_engine
+  attr_reader :sales_engine, :total_invoices
 
+  # TODO: refactor "@sales_engine" methods so there's only one dot after them
   def initialize(sales_engine_object)
-
     @sales_engine = sales_engine_object
-    @total_items = @sales_engine.items.all.length #does not like length
-    @total_merchants = @sales_engine.merchants.all.length #does not like length
-    @mean_merchant_items = average_items_per_merchant
-    @mean_item_price = average_item_price
+    @total_items = @sales_engine.items.all.length
+    @total_merchants = @sales_engine.merchants.all.length
     @total_invoices = @sales_engine.invoices.all.length
+    @mean_merchant_items = average_items_per_merchant
+    @mean_merchant_invoices = average_invoices_per_merchant
+    @mean_item_price = average_item_price
   end
 
   def average_items_per_merchant
@@ -72,15 +73,105 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    invoices_per_merchant = @sales_engine.merchants.all.map do |merchant|
-      @sales_engine.invoices.find_all_by_merchant_id(merchant.id).length
-    end
-    invoices_per_merchant.reduce(:+) / @total_merchants
-
-    # total_invoices = @sales_engine.invoices.invoice.reduce(0) do |sum, item|
-      # sum += item.invoices
-    # end
-    # (total_invoices / total_merchants).round(2)
+    total_invoices = @sales_engine.invoices.all.length
+    (total_invoices.to_f / @total_merchants).round(2)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    squares = @sales_engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - @mean_merchant_invoices) ** 2
+    end
+    Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    invoice_std = invoice_standard_deviation
+    cutoff = @mean_merchant_invoices + ((invoice_std) * 2)
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length > cutoff
+    end
+  end
+
+  def invoice_standard_deviation
+    squares = @sales_engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - @mean_merchant_invoices) ** 2
+    end
+    Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
+  end
+
+  def bottom_merchants_by_invoice_count
+    invoice_std = invoice_standard_deviation
+    cutoff = @mean_merchant_invoices - ((invoice_std) * 2)
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length < cutoff
+    end
+  end
+
+  def invoices_to_days
+    @sales_engine.invoices.all.map do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def count_invoices_by_day
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday",
+            "Friday", "Saturday", "Sunday"]
+    days.map do |day|
+      invoices_to_days.count(day)
+    end
+  end
+
+  def average_invoices_per_day
+    @sales_engine.invoices.all.length / 7
+  end
+
+  def invoices_per_day_standard_deviation
+    squares = count_invoices_by_day.map do |number|
+      (number - average_invoices_per_day) ** 2
+    end
+    Math.sqrt(squares.reduce(:+) / 6).round(2)
+  end
+
+  def top_days_grouped_by_count
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday",
+            "Friday", "Saturday", "Sunday"]
+    zipped = days.zip(count_invoices_by_day)
+    result = zipped.reduce({}) do |result, sub_array|
+      result[sub_array[0]] = sub_array[1]; result
+    end
+  end
+
+  def top_days_by_invoice_count
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday",
+              "Friday", "Saturday", "Sunday"]
+
+    invoice_std = invoices_per_day_standard_deviation
+    cutoff = average_invoices_per_day + invoice_std
+    days.find_all do |day|
+      top_days_grouped_by_count[day] > cutoff
+    end
+  end
+
+  def find_statuses
+    @sales_engine.invoices.all.map { |invoice| invoice.status }.uniq
+  end
+
+  def group_invoices_by_status
+    statuses = [:pending, :shipped, :returned]
+    counts = statuses.map do |status|
+      @sales_engine.invoices.find_all_by_status(status).length
+    end
+
+    percentages = counts.map do |count|
+      (count.to_f / @total_invoices) * 100
+    end
+
+    statuses.zip(percentages).to_h
+  end
+
+  def invoice_status(status)
+    group_invoices_by_status[status].round(2)
+  end
+
 
 end
