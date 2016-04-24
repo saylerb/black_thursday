@@ -6,3 +6,4 @@ gem 'rake'
 gem 'minitest'
 gem 'simplecov', :require => false, :group => :test
 gem 'pry'
+gem 'minitest-emoji'
