@@ -5,14 +5,15 @@ require "./lib/invoice_item_repo"
 class InvoiceItemRepoTest < Minitest::Test
 
   def setup
-    @ip = InvoiceItemRepo.new
+    @repo = InvoiceItemRepo.new("./fixtures/invoice_items_fixture.csv")
   end
 
   def test_invoice_items_repo_exists
-    assert @ip
+    assert @repo
   end
 
-  def test_invoice_item_has_attributes
+  def test_if_repo_contains_invoice_items
+
   end
 
 end
