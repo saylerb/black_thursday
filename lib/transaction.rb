@@ -21,8 +21,9 @@ class Transaction
     @transaction_repository = transaction_repository
   end
 
-  # def merchant
-  #   @transaction_repository.find_merchant_by_merchant_id(@merchant_id)
-  # end
+  def invoice
+    @transaction_repository.find_invoice_by_invoice_id(@invoice_id)
+  end
+
 
 end
