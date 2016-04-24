@@ -66,5 +66,13 @@ class InvoiceRepo
   def find_customer_by_customer_id(id)
     @sales_engine.find_customer_by_customer_id(id)
   end
-  
+
+  def is_invoice_paid_in_full?(invoice_id)
+    @sales_engine.is_invoice_paid_in_full?(invoice_id)
+  end
+
+  def find_total_dollar_amount_for_invoice(invoice_id)
+    @sales_engine.find_total_dollar_amount_for_invoice(invoice_id)
+  end
+
 end

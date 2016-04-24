@@ -66,4 +66,21 @@ class SalesEngine
     end
   end
 
+  def is_invoice_paid_in_full?(invoice_id)
+    find_transactions_by_invoice_id(invoice_id).all? do |transaction|
+      # require "pry"; binding.pry
+      transaction.result == "success"
+    end
+
+  end
+
+  def find_total_dollar_amount_for_invoice(invoice_id)
+    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id) # => [Invoice_Item_1, Invoice_Item_2]
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.quantity * invoice_item.unit_price
+    end
+
+  end
+
+
 end

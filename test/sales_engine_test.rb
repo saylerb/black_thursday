@@ -66,4 +66,19 @@ class SalesEngineTest < Minitest::Test
     assert_equal 13, merchant.customers.length
   end
 
+  def test_it_can_find_out_if_invoice_is_paid_in_full
+    invoice_one = se.invoices.find_by_id(1)
+    invoice_two = se.invoices.find_by_id(204)
+
+    assert invoice_one.is_paid_in_full?
+    refute invoice_two.is_paid_in_full?
+  end
+
+  def test_it_can_find_total_dollar_amount_for_invoice
+    invoice = se.invoices.all.first
+    puts invoice
+    assert invoice.total
+
+  end
+
 end

@@ -35,4 +35,12 @@ class Invoice
     @invoice_repository.find_customer_by_customer_id(@customer_id)
   end
 
+  def is_paid_in_full?
+    @invoice_repository.is_invoice_paid_in_full?(@id)
+  end
+
+  def total
+    @invoice_respository.find_total_dollar_amount_for_invoice(@id)
+  end
+
 end
