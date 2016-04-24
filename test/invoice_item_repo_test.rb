@@ -39,7 +39,15 @@ class InvoiceItemRepoTest < Minitest::Test
 
     assert_equal 5, result_1.length
     assert_equal 8, result_2.length
+  end
 
+  def test_repo_returns_nil_if_it_cannot_find_single_thing
+    assert_nil @repo.find_by_id(121239192)
+  end
+
+  def test_repo_returns_empty_array_if_it_cannot_find_all_things
+    assert_equal [], @repo.find_all_by_item_id(121239192)
+    assert_equal [], @repo.find_all_by_invoice_id(121239192)
   end
 
 end
