@@ -40,7 +40,7 @@ class Invoice
   end
 
   def total
-    @invoice_respository.find_total_dollar_amount_for_invoice(@id)
+    @invoice_repository.find_total_dollar_amount_for_invoice(@id)
   end
 
 end
