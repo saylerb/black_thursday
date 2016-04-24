@@ -23,8 +23,6 @@ class Invoice
     @invoice_repository.find_merchant_by_merchant_id(@merchant_id)
   end
 
-  #TODO: added this Sat night
-
   def items
     @invoice_repository.find_items_by_invoice_id(@invoice_id)
   end
