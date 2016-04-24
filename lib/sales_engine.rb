@@ -18,7 +18,7 @@ class SalesEngine
     @merchants = MerchantRepo.new(file_names[:merchants], self)
     @items = ItemRepo.new(file_names[:items], self)
     @invoices = InvoiceRepo.new(file_names[:invoices], self)
-    @invoice_items = InvoiceItemsRepo.new(file_names[:invoiceitems], self)
+    @invoice_items = InvoiceItemRepo.new(file_names[:invoice_items], self)
     @transactions = TransactionRepo.new(file_names[:transactions], self)
     @customers = CustomerRepo.new(file_names[:customers], self)
 
@@ -46,8 +46,6 @@ class SalesEngine
       @items.find_by_id(invoice_item.item_id)
     end
   end
-
-  def find_
 
 
 

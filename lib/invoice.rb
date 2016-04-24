@@ -24,7 +24,7 @@ class Invoice
   end
 
   def items
-    @invoice_repository.find_items_by_invoice_id(@invoice_id)
+    @invoice_repository.find_items_by_invoice_id(@id)
   end
 
 end
