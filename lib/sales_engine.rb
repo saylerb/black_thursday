@@ -59,5 +59,11 @@ class SalesEngine
     @invoices.find_by_id(invoice_id)
   end
 
+  def find_customer_by_merchant_id(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    invoices.map do |invoice|
+      @customers.find_by_id(invoice.customer_id)
+    end
+  end
 
 end

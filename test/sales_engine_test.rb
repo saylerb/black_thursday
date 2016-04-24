@@ -49,7 +49,21 @@ class SalesEngineTest < Minitest::Test
     transaction = se.transactions.find_by_id(40)
     assert_kind_of Invoice, transaction.invoice
     assert_equal 12335150, transaction.invoice.merchant_id
+  end
 
+  def test_it_can_find_customers_for_merchant
+    merchant = se.merchants.find_by_id(12334105)
+    assert_kind_of Merchant, merchant
+    assert_kind_of Array, merchant.customers
+    assert_kind_of Customer, merchant.customers[0]
+  end
+
+  def test_it_can_find_merchants_for_customer
+    merchant = se.merchants.find_by_id(12334194)
+    assert_kind_of Merchant, merchant
+    assert_kind_of Array, merchant.customers
+    assert_kind_of Customer, merchant.customers[0]
+    assert_equal 13, merchant.customers.length
   end
 
 end
