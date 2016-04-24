@@ -51,4 +51,10 @@ class InvoiceRepo
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 
+#TODO: added this Sat night
+
+  def find_items_by_invoice_id(invoice_id)
+    @sales_engine.find_items_by_invoice_id(invoice_id)
+  end
+
 end
