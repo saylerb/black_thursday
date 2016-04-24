@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/emoji"
 require "./lib/customer_repo"
 
-class InvoiceItemRepoTest < Minitest::Test
+class CustomeRepoTest < Minitest::Test
 
   def setup
     @repo = CustomerRepo.new("./fixtures/customers_sample.csv")
@@ -13,18 +13,15 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_if_repo_returns_all_customers
-    skip
     assert_equal 100, @repo.all.length
   end
 
   def test_that_repo_can_find_by_customer_id
-    skip
     assert_kind_of Customer, @repo.find_by_id(94)
     assert_equal "Dusty", @repo.find_by_id(94).first_name
   end
 
   def test_that_repo_can_find_all_by_first_name
-    skip
     result = @repo.find_all_by_first_name("Einar")
 
     assert_kind_of Array, result
@@ -34,7 +31,6 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_that_repo_can_find_all_by_last_name
-    skip
     result_1 = @repo.find_all_by_last_name("Pfannerstill")
     result_2 = @repo.find_all_by_last_name("Dickens")
 
@@ -43,12 +39,10 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_repo_returns_nil_if_it_cannot_find_single_thing
-    skip
     assert_nil @repo.find_by_id(121239192)
   end
 
   def test_repo_returns_empty_array_if_it_cannot_find_all_things
-    skip
     assert_equal [], @repo.find_all_by_first_name("Brian")
     assert_equal [], @repo.find_all_by_last_name("Sayler")
   end
