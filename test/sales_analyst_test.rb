@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/sales_analyst"
+require "./test/test_helper"
 require "./lib/sales_engine"
 
 class SalesAnalystTest < Minitest::Test

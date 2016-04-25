@@ -1,5 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
+require "./test/test_helper"
 require "./lib/invoice"
 require "csv"
 require "bigdecimal"
@@ -25,4 +26,5 @@ class InvoiceTest < Minitest::Test
     assert_kind_of Time, @invoice.created_at
     assert_kind_of Time, @invoice.updated_at
   end
+
 end

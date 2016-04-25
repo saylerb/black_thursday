@@ -136,7 +136,7 @@ class SalesAnalyst
     days = ["Monday", "Tuesday", "Wednesday", "Thursday",
             "Friday", "Saturday", "Sunday"]
     zipped = days.zip(count_invoices_by_day)
-    result = zipped.reduce({}) do |result, sub_array|
+    zipped.reduce({}) do |result, sub_array|
       result[sub_array[0]] = sub_array[1]; result
     end
   end

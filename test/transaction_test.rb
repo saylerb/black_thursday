@@ -1,5 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
+require "./test/test_helper"
 require "./lib/transaction"
 require "csv"
 require "bigdecimal"
@@ -17,7 +18,7 @@ class TransactionTest < Minitest::Test
       :created_at => @time,
       :updated_at => @time
       }, nil)
-    end
+  end
 
   def test_it_exists
     assert @t
@@ -33,7 +34,4 @@ class TransactionTest < Minitest::Test
     assert_equal Time.parse(@time), @t.updated_at
   end
 
-  # def test_it_returns_merchant_from_transaction
-  #   assert_equal
-  # end
 end
