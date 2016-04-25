@@ -1,6 +1,6 @@
+require "./test/test_helper"
 require "minitest/autorun"
 require "minitest/pride"
-require "./test/test_helper"
 require "./lib/sales_analyst"
 require "./lib/sales_engine"
 
