@@ -38,7 +38,6 @@ class ItemRepoTest < Minitest::Test
   def test_it_finds_all_items_with_description_fragment
     assert @repo.find_all_with_description("batiks").any? do |item|
       item.description == "I love finding beautiful batiks"
-      # item.description == "100% Rayon Batik"
     end
   end
 

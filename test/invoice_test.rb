@@ -21,13 +21,6 @@ class InvoiceTest < Minitest::Test
     assert @invoice
   end
 
-  def test_it_find_merchant_in_invoice
-    # TODO: test relationships or mock test relationships
-    # for the connection between invoices <=> merchants
-    skip
-    assert @invoice.merchant
-  end
-
   def test_that_dates_are_converted_to_time_objects
     assert_kind_of Time, @invoice.created_at
     assert_kind_of Time, @invoice.updated_at

@@ -41,7 +41,7 @@ class SalesEngine
   end
 
   def find_items_by_invoice_id(invoice_id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id) # => [Invoice_Item_1, Invoice_Item_2]
+    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_items.map do |invoice_item|
       @items.find_by_id(invoice_item.item_id)
     end
@@ -61,17 +61,13 @@ class SalesEngine
 
   def find_customer_by_merchant_id(merchant_id)
     invoices = @invoices.find_all_by_merchant_id(merchant_id)
-    invoices.map do |invoice|
-      @customers.find_by_id(invoice.customer_id)
-    end
+    invoices.map { |invoice| @customers.find_by_id(invoice.customer_id) }.uniq
   end
 
   def is_invoice_paid_in_full?(invoice_id)
-    find_transactions_by_invoice_id(invoice_id).all? do |transaction|
-      # require "pry"; binding.pry
+    find_transactions_by_invoice_id(invoice_id).any? do |transaction|
       transaction.result == "success"
     end
-
   end
 
   def find_total_dollar_amount_for_invoice(invoice_id)
