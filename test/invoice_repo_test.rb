@@ -1,5 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
+require "./test/test_helper"
 require "csv"
 require "./lib/invoice_repo"
 
