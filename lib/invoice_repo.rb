@@ -47,8 +47,32 @@ class InvoiceRepo
     end
   end
 
+  # Connections:
+
   def find_merchant_by_merchant_id(merchant_id)
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
+  end
+
+#TODO: added this Sat night
+
+  def find_items_by_invoice_id(invoice_id)
+    @sales_engine.find_items_by_invoice_id(invoice_id)
+  end
+
+  def find_transactions_by_invoice_id(id)
+    @sales_engine.find_transactions_by_invoice_id(id)
+  end
+
+  def find_customer_by_customer_id(id)
+    @sales_engine.find_customer_by_customer_id(id)
+  end
+
+  def is_invoice_paid_in_full?(invoice_id)
+    @sales_engine.is_invoice_paid_in_full?(invoice_id)
+  end
+
+  def find_total_dollar_amount_for_invoice(invoice_id)
+    @sales_engine.find_total_dollar_amount_for_invoice(invoice_id)
   end
 
 end
