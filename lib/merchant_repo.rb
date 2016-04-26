@@ -13,7 +13,7 @@ class MerchantRepo
     contents = CSV.open file_name, headers: true, header_converters: :symbol
 
     result = contents.map do |row|
-      Merchant.new({:id => row[:id], :name => row[:name]}, self)
+      Merchant.new(row, self)
     end
     result
   end

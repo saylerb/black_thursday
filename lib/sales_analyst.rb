@@ -173,5 +173,78 @@ class SalesAnalyst
     group_invoices_by_status[status].round(2)
   end
 
+  def total_revenue_by_date(date)
+    invoices_for_date = @sales_engine.invoices.all.find_all do |invoice|
+      invoice.created_at.to_date == date.to_date
+    end
+
+    invoices_for_date.reduce(BigDecimal.new(0)) do |total, invoice|
+      total += invoice.total; total
+    end
+  end
+
+  def top_revenue_earners(number = 20)
+    invoices = @sales_engine.merchants.all.map do |merchant|
+      merchant.invoices
+    end
+
+    totals = invoices.map do |invoices|
+      invoices.map { |invoice| invoice.total }.reduce(:+)
+    end
+
+    sorted = @sales_engine.merchants.all.zip(totals).sort_by do |pair|
+      -pair[1]
+    end
+
+    sorted[0...number].map { |pair| pair[0] }
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(@total_merchants)
+  end
+
+  def merchants_with_pending_invoices
+    unpaid_invoices = @sales_engine.invoices.all.find_all do |invoice|
+      !invoice.is_paid_in_full?
+    end
+
+    merchants_with_unpaid_invoices = unpaid_invoices.map do |invoice|
+      invoice.merchant
+    end
+
+    merchants_with_unpaid_invoices.uniq
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.length == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_number = Date::MONTHNAMES.index(month.capitalize)
+
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == month_number
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @sales_engine.merchants.find_invoices_by_merchant_id(merchant_id)
+
+    invoices.reduce(0) do |sum, invoice|
+      sum += invoice.total; sum
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoices = @sales_engine.merchants.find_invoices_by_merchant_id(merchant_id)
+
+    paid_invoices = invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+
+  end
+
 
 end
