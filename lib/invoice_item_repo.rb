@@ -4,7 +4,7 @@ require_relative "invoice_item"
 class InvoiceItemRepo
 
   def initialize(file_name = "./data/invoice_items.csv", sales_engine = nil)
-    @all_invoice_items = load_csv(file_name)
+    @all_invoice_items = load_csv(file_name) unless file_name.nil?
     @sales_engine = sales_engine
   end
 

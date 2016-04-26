@@ -1,6 +1,6 @@
+require "./test/test_helper"
 require "minitest/autorun"
 require "minitest/emoji"
-require "./test/test_helper"
 require "./lib/invoice_item"
 require "time"
 require "bigdecimal"

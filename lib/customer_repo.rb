@@ -4,7 +4,8 @@ require_relative "customer"
 class CustomerRepo
 
   def initialize(file_name = "./fixtures/customers_sample.csv", sales_engine = nil)
-    @all_customers = load_csv(file_name)
+    @all_customers = load_csv(file_name) unless file_name.nil?
+    @sales_engine = sales_engine
   end
 
   def load_csv(file_name)

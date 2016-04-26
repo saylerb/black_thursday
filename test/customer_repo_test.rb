@@ -1,6 +1,6 @@
+require "./test/test_helper"
 require "minitest/autorun"
 require "minitest/emoji"
-require "./test/test_helper"
 require "./lib/customer_repo"
 
 class CustomeRepoTest < Minitest::Test

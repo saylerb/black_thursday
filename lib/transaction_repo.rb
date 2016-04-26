@@ -6,7 +6,7 @@ class TransactionRepo
   attr_reader :all_transactions, :sales_engine
 
   def initialize(file_name, sales_engine)
-    @all_transactions = load_csv(file_name)
+    @all_transactions = load_csv(file_name) unless file_name.nil?
     @sales_engine = sales_engine
   end
 
