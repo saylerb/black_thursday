@@ -83,5 +83,14 @@ class SalesEngine
     end
   end
 
+  def repo_size(repo_name)
+    thing = {:items     => @items,
+             :merchants => @merchants,
+             :invoices  => @invoices,
+             :invoice_items => @invoice_items,
+             :transactions => @transactions,
+             :customers => @customers}
+    thing[repo_name].size
+  end
 
 end
