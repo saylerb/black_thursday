@@ -19,6 +19,10 @@ class InvoiceRepo
     result
   end
 
+  def size
+    @all_invoices.length
+  end
+
   def all
     @all_invoices
   end

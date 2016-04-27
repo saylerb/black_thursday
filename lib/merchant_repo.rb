@@ -18,6 +18,11 @@ class MerchantRepo
     result
   end
 
+  def size
+    @all_merchants.length
+  end
+
+
   def all
     @all_merchants
   end

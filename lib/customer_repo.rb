@@ -15,6 +15,10 @@ class CustomerRepo
     end
   end
 
+  def size
+    @all_customers.length
+  end
+
   def all
     @all_customers
   end
