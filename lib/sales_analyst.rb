@@ -289,7 +289,7 @@ class SalesAnalyst
       revenue == max_revenue
     end
 
-    result = @sales_engine.items.find_by_id(max_item[0])
+    @sales_engine.items.find_by_id(max_item[0])
 
   end
 

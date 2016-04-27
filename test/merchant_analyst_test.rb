@@ -55,6 +55,21 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 467, merchants.length
   end
 
+  def test_it_can_find_merchants_with_only_one_item
+    merchants = @sa.merchants_with_only_one_item
+    assert_kind_of Array, merchants
+    assert_kind_of Merchant, merchants.first
+    assert_equal 12334112, merchants.first.id
 
+  end
+
+  def test_it_can_find_merchants_with_only_one_item_for_month
+    merchants = @sa.merchants_with_only_one_item_registered_in_month("May")
+    merchants_ids = merchants.map { |merchant| merchant.id }
+    assert_kind_of Array, merchants
+    assert_kind_of Merchant, merchants.first
+    assert merchants_ids.include?(12334112)
+  end
+  # 12334112, "2009-05-30"
 
 end
