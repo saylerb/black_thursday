@@ -72,4 +72,9 @@ class MerchantAnalystTest < Minitest::Test
   end
   # 12334112, "2009-05-30"
 
+  def test_calculate_average_invoices_per_merchant
+    num = @sa.average_invoices_per_merchant_standard_deviation
+    assert_kind_of Numeric, num
+  end
+
 end
