@@ -280,7 +280,7 @@ class SalesAnalyst
     end.flatten
     
     item_revenues = paid_invoice_items.each_with_object(Hash.new(0)) do |invoice_item, counts|
-      counts[invoice_item.item_id] += invoice_item.unit_price * invoice_item.quantity
+      counts[invoice_item.item_id] += (invoice_item.unit_price * invoice_item.quantity)
     end
 
     max_revenue = item_revenues.max_by { |key, value| value }[1]
@@ -289,7 +289,7 @@ class SalesAnalyst
       revenue == max_revenue
     end
 
-    @sales_engine.items.find_by_id(max_item[0])
+    result = @sales_engine.items.find_by_id(max_item[0])
 
   end
 

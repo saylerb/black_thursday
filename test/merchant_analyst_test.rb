@@ -19,44 +19,25 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_total_for_date_
-    skip
     date = Time.parse("2013-06-18")
     assert_kind_of BigDecimal, @sa.total_revenue_by_date(date)
     assert_equal 2838.84, @sa.total_revenue_by_date(date).to_f
   end
 
   def test_it_finds_top_20_performing_merchants
-    skip
     assert_equal 20, @sa.top_revenue_earners.length 
     assert_equal 12334634, @sa.top_revenue_earners.first.id
   end
 
-
   def test_finds_most_sold_item_for_merchant
-    skip
-    @sa.most_sold_item_for_merchant(12337105)
+    items = @sa.most_sold_item_for_merchant(12337105)
+    assert_kind_of Array, items
+    assert_equal 4, items.length
   end
 
-  def test_finding_all_invoice_items_for_merchant
-    # Find all invoice items for specific merchant id
-    # merchant = MerchantRepo.new(
+  def test_finds_best_item_for_merchant
     best_item = @sa.best_item_for_merchant(12337105)
-    
-   # .merchants.find_by_id(12337105)
-
-    assert_kind_of InvoiceItem, best_item
-    assert_equal 12, best_item
-
-  end
-
-  def test_finding_revenue_for_all_items
-    skip
-    # Map item revenues and item id numbers to hash from invoice items array
-  end
-  
-  def test_finding_object_with_object_id
-    skip
-    # Find max revenue item object with item id number
+    assert_kind_of Item, best_item
   end
 
 end
