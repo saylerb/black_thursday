@@ -40,4 +40,21 @@ class MerchantAnalystTest < Minitest::Test
     assert_kind_of Item, best_item
   end
 
+  def test_it_can_rank_merchants_by_revenue
+    ranked = @sa.merchants_ranked_by_revenue
+    assert_kind_of Array, ranked
+    assert_kind_of Merchant, ranked.first
+    assert_equal 12334634, ranked.first.id
+    assert_equal 475, ranked.length
+  end
+
+  def test_it_can_find_all_merchants_with_pending_invoices
+    merchants = @sa.merchants_with_pending_invoices
+    assert_kind_of Array, merchants
+    assert_kind_of Merchant, merchants.first
+    assert_equal 467, merchants.length
+  end
+
+
+
 end
