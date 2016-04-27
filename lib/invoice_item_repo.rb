@@ -38,7 +38,4 @@ class InvoiceItemRepo
     end
   end
 
-  def find_items_by_invoice_id(invoice_id)
-    @SalesEngine
-  end
 end

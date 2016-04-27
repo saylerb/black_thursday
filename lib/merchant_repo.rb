@@ -13,7 +13,7 @@ class MerchantRepo
     contents = CSV.open file_name, headers: true, header_converters: :symbol
 
     result = contents.map do |row|
-      Merchant.new({:id => row[:id], :name => row[:name]}, self)
+      Merchant.new(row, self)
     end
     result
   end
@@ -51,4 +51,5 @@ class MerchantRepo
   def find_customer_by_merchant_id(merchant_id)
     @sales_engine.find_customer_by_merchant_id(merchant_id)
   end
+
 end

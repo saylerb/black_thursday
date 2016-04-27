@@ -78,4 +78,14 @@ class SalesEngineTest < Minitest::Test
     assert_kind_of BigDecimal, invoice.total
   end
 
+  def test_can_get_invoice_for_transaction
+    trans = se.transactions.find_by_id(1)
+    invoice = trans.invoice
+
+    assert_kind_of Transaction, trans
+    assert_equal invoice.id, trans.invoice_id
+
+  end
+
+
 end
