@@ -91,4 +91,11 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 4, merchants.length
   end
 
+  def test_find_revenue_for_merchant
+
+   result = @sa.revenue_by_merchant(12334112)
+   assert_kind_of BigDecimal, result
+   assert_equal 67295.83, result.to_f
+    
+  end
 end

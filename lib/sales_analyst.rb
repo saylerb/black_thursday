@@ -184,11 +184,11 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number = 20)
-    invoices = @sales_engine.merchants.all.map do |merchant|
+    all_invoices = @sales_engine.merchants.all.map do |merchant|
       merchant.invoices
     end
 
-    totals = invoices.map do |invoices|
+    totals = all_invoices.map do |invoices|
       invoices.map { |invoice| invoice.total }.reduce(:+)
     end
 
