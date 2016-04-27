@@ -77,4 +77,18 @@ class MerchantAnalystTest < Minitest::Test
     assert_kind_of Numeric, num
   end
 
+  def test_find_top_merchants_by_invoice_count
+    merchants = @sa.top_merchants_by_invoice_count
+    assert_kind_of Array, merchants
+    assert_kind_of Merchant,  merchants.first
+    assert_equal 12, merchants.length
+  end
+
+  def test_find_bot_merchants_by_invoice_count
+    merchants = @sa.bottom_merchants_by_invoice_count
+    assert_kind_of Array, merchants
+    assert_kind_of Merchant,  merchants.first
+    assert_equal 4, merchants.length
+  end
+
 end
