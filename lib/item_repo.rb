@@ -24,6 +24,10 @@ class ItemRepo
     end
   end
 
+  def size
+    @all_items.length
+  end
+
   def all
     @all_items
   end

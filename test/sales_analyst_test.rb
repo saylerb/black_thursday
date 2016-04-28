@@ -18,11 +18,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_has_access_to_sales_engine
-    assert @sa.sales_engine
-    assert @sa.sales_engine.merchants
-    assert @sa.sales_engine.merchants.all_merchants
-    assert @sa.sales_engine.items
-    assert @sa.sales_engine.items.all_items
+    assert @sa.se
   end
 
   def test_can_find_merchant_by_id
@@ -55,6 +51,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_finds_avg_price_per_merchant
     assert_kind_of BigDecimal, @sa.average_item_price_for_merchant(12334165)
+    assert_equal 100, @sa.average_item_price_for_merchant(12334165).to_f
   end
 
   def test_it_finds_avg_avg_price_per_merchant
@@ -81,5 +78,19 @@ class SalesAnalystTest < Minitest::Test
     assert_kind_of Float, @sa.average_invoices_per_merchant
   end
 
+  def test_if_i_can_get_size_of_each_repo
+    merchant_repo_size = @sa.total_merchants
+    items_repo_size = @sa.total_items
+    invoice_repo_size = @sa.total_invoices
+
+    assert_kind_of Numeric, merchant_repo_size
+    assert_equal 475, merchant_repo_size
+
+    assert_kind_of Numeric, items_repo_size
+    assert_equal 1367, items_repo_size
+
+    assert_kind_of Numeric, invoice_repo_size
+    assert_equal 4985, invoice_repo_size
+  end
 
 end
