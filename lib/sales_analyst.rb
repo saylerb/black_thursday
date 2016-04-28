@@ -1,9 +1,11 @@
 require_relative "sales_engine"
 require_relative "sales_calculator"
+require_relative "sales_analyst_days"
 
 class SalesAnalyst
 
   include SalesCalculator
+  include SalesAnalystDays
 
   attr_reader :se, :total_invoices, :total_merchants, :total_items
 
@@ -105,23 +107,23 @@ class SalesAnalyst
     end
   end
 
-  def invoices_to_days
-    @se.invoices.all.map do |invoice|
-      invoice.created_at.strftime("%A")
-    end
-  end
+  # def invoices_to_days
+  #   @se.invoices.all.map do |invoice|
+  #     invoice.created_at.strftime("%A")
+  #   end
+  # end
 
-  def count_invoices_by_day
-    days = ["Monday", "Tuesday", "Wednesday", "Thursday",
-            "Friday", "Saturday", "Sunday"]
-    days.map do |day|
-      invoices_to_days.count(day)
-    end
-  end
+  # def count_invoices_by_day
+  #   days = ["Monday", "Tuesday", "Wednesday", "Thursday",
+  #           "Friday", "Saturday", "Sunday"]
+  #   days.map do |day|
+  #     invoices_to_days.count(day)
+  #   end
+  # end
 
-  def average_invoices_per_day
-    @se.invoices.all.length / 7
-  end
+  # def average_invoices_per_day
+  #   @se.invoices.all.length / 7
+  # end
 
   def invoices_per_day_standard_deviation
     squares = count_invoices_by_day.map do |number|
@@ -130,25 +132,25 @@ class SalesAnalyst
     Math.sqrt(squares.reduce(:+) / 6).round(2)
   end
 
-  def top_days_grouped_by_count
-    days = ["Monday", "Tuesday", "Wednesday", "Thursday",
-            "Friday", "Saturday", "Sunday"]
-    zipped = days.zip(count_invoices_by_day)
-    zipped.reduce({}) do |result, sub_array|
-      result[sub_array[0]] = sub_array[1]; result
-    end
-  end
+  # def top_days_grouped_by_count
+  #   days = ["Monday", "Tuesday", "Wednesday", "Thursday",
+  #           "Friday", "Saturday", "Sunday"]
+  #   zipped = days.zip(count_invoices_by_day)
+  #   zipped.reduce({}) do |result, sub_array|
+  #     result[sub_array[0]] = sub_array[1]; result
+  #   end
+  # end
 
-  def top_days_by_invoice_count
-    days = ["Monday", "Tuesday", "Wednesday", "Thursday",
-              "Friday", "Saturday", "Sunday"]
+  # def top_days_by_invoice_count
+  #   days = ["Monday", "Tuesday", "Wednesday", "Thursday",
+  #             "Friday", "Saturday", "Sunday"]
 
-    invoice_std = invoices_per_day_standard_deviation
-    cutoff = average_invoices_per_day + invoice_std
-    days.find_all do |day|
-      top_days_grouped_by_count[day] > cutoff
-    end
-  end
+  #   invoice_std = invoices_per_day_standard_deviation
+  #   cutoff = average_invoices_per_day + invoice_std
+  #   days.find_all do |day|
+  #     top_days_grouped_by_count[day] > cutoff
+  #   end
+  # end
 
   def find_statuses
     @se.invoices.all.map { |invoice| invoice.status }.uniq

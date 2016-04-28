@@ -56,5 +56,4 @@ module SalesCalculator
     standard_deviation(:total_invoices, :@merchants, @mean_merchant_invoices, @total_merchants)
   end
 
-
 end
