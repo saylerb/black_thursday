@@ -26,7 +26,8 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    cutoff = @mean_merchant_items + average_items_per_merchant_standard_deviation
+    cutoff = @mean_merchant_items + \
+      average_items_per_merchant_standard_deviation
     @all_merchants.find_all { |merchant| merchant.total_items > cutoff }
   end
 
@@ -45,7 +46,14 @@ class SalesAnalyst
     @all_merchants.find_all { |merchant| merchant.total_invoices < cutoff }
   end
 
+  def revenue_by_merchant(merchant_id)
+    invoices = @se.find_invoices_by_merchant_id(merchant_id)
+    invoices.reduce(0) { |sum, invoice| sum += invoice.total; sum }
+  end
+
+
   def top_revenue_earners(number = 20)
+
     invoices_by_merchant = @all_merchants.map { |merchant| merchant.invoices }
     totals = invoices_by_merchant.map do |invoices|
       invoices.reduce(0) { |sum, invoice| sum += invoice.total; sum }
@@ -103,7 +111,6 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     invoices = @se.find_invoices_by_merchant_id(merchant_id)
-
     paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
 
     paid_items = paid_invoices.map do |invoice|
@@ -111,14 +118,13 @@ class SalesAnalyst
     end.flatten
 
     revenue = paid_items.each_with_object(Hash.new(0)) do |invoice_item, count|
-      count[invoice_item.item_id] += (invoice_item.unit_price * invoice_item.quantity)
+      count[invoice_item.item_id] += 
+        (invoice_item.unit_price * invoice_item.quantity)
     end
 
     max_revenue = revenue.max_by { |key, value| value }[1]
-
     max_item = revenue.find { |item_id, revenue| revenue == max_revenue }
-
-    @se.items.find_by_id(max_item[0])
+    @se.find_item_by_item_id(max_item[0])
   end
 
 end

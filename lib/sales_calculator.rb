@@ -16,7 +16,8 @@ module SalesCalculator
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(:total_items, :@merchants, @mean_merchant_items, @total_merchants)
+    standard_deviation(:total_items, :@merchants, \
+                       @mean_merchant_items, @total_merchants)
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -49,13 +50,15 @@ module SalesCalculator
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(:total_invoices, :@merchants, @mean_merchant_invoices, @total_merchants)
+    standard_deviation(:total_invoices, :@merchants, \
+                       @mean_merchant_invoices, @total_merchants)
   end
 
   def invoice_standard_deviation
-    standard_deviation(:total_invoices, :@merchants, @mean_merchant_invoices, @total_merchants)
+    standard_deviation(:total_invoices, :@merchants, \
+                       @mean_merchant_invoices, @total_merchants)
   end
- 
+
   def invoices_per_day_standard_deviation
     squares = count_invoices_by_day.map do |number|
       (number - average_invoices_per_day) ** 2

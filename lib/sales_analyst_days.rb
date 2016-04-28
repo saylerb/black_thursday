@@ -28,8 +28,8 @@ module SalesAnalystDays
   end
 
   def group_invoices_by_status
-    statuses    = [:pending, :shipped, :returned]
-    counts      = statuses.map { |status| @se.total_invoices_for_status(status) }
+    statuses = [:pending, :shipped, :returned]
+    counts = statuses.map { |status| @se.total_invoices_for_status(status) }
     percentages = counts.map { |count| (count.to_f / @total_invoices) * 100 }
     statuses.zip(percentages).to_h
   end
