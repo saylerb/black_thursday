@@ -4,7 +4,7 @@ require_relative "invoice_item"
 class InvoiceItemRepo
 
   def initialize(file_name = "./data/invoice_items.csv", sales_engine = nil)
-    @all_invoice_items = load_csv(file_name) unless file_name.nil?
+    @all_inv_items = load_csv(file_name) unless file_name.nil?
     @sales_engine = sales_engine
   end
 
@@ -17,25 +17,19 @@ class InvoiceItemRepo
   end
 
   def all
-    @all_invoice_items
+    @all_inv_items
   end
 
   def find_by_id(id)
-    @all_invoice_items.find do |invoice_item|
-      invoice_item.id == id
-    end
+    @all_inv_items.find { |inv_item| inv_item.id == id }
   end
 
   def find_all_by_item_id(item_id)
-    @all_invoice_items.find_all do |invoice_item|
-      invoice_item.item_id == item_id
-    end
+    @all_inv_items.find_all { |inv_item| inv_item.item_id == item_id }
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @all_invoice_items.find_all do |invoice_item|
-      invoice_item.invoice_id == invoice_id
-    end
+    @all_inv_items.find_all { |inv_item| inv_item.invoice_id == invoice_id }
   end
 
 end

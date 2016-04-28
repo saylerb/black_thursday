@@ -36,6 +36,10 @@ class SalesEngine
     @items.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_item_by_item_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
   def find_total_number_of_items_for_merchant_id(merchant_id)
     find_items_by_merchant_id(merchant_id).length
   end
@@ -69,6 +73,10 @@ class SalesEngine
     @invoices.find_by_id(invoice_id)
   end
 
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
   def find_customer_by_merchant_id(merchant_id)
     invoices = @invoices.find_all_by_merchant_id(merchant_id)
     invoices.map { |invoice| @customers.find_by_id(invoice.customer_id) }.uniq
@@ -85,10 +93,8 @@ class SalesEngine
   end
 
   def find_total_dollar_amount_for_invoice(invoice_id)
-
     if is_invoice_paid_in_full?(invoice_id)
-      invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id) # => [Invoice_Item_1, Invoice_Item_2]
-
+      invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
       invoice_items.reduce(0) do |sum, invoice_item|
         sum += invoice_item.quantity * invoice_item.unit_price
       end
@@ -96,7 +102,6 @@ class SalesEngine
       0
     end
   end
-
 
   def repo_size(repo_name)
     self.instance_variable_get(repo_name).size
