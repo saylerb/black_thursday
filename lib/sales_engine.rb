@@ -84,13 +84,11 @@ class SalesEngine
   end
 
   def repo_size(repo_name)
-    thing = {:items     => @items,
-             :merchants => @merchants,
-             :invoices  => @invoices,
-             :invoice_items => @invoice_items,
-             :transactions => @transactions,
-             :customers => @customers}
-    thing[repo_name].size
+    self.instance_variable_get(repo_name).size
   end
 
-end
+  def all(repo_name)
+    self.instance_variable_get(repo_name).all
+  end
+
+

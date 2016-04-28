@@ -1,33 +1,30 @@
 require_relative "sales_engine"
+require_relative "sales_calculator"
 
 class SalesAnalyst
+
+  include SalesCalculator
 
   attr_reader :se, :total_invoices, :total_merchants, :total_items
 
   def initialize(sales_engine_object)
     @se = sales_engine_object
 
-    @total_items = @se.repo_size(:items)
-    @total_merchants = @se.repo_size(:merchants)
-    @total_invoices = @se.repo_size(:invoices)
+    @total_items = @se.repo_size(:@items)
+    @total_merchants = @se.repo_size(:@merchants)
+    @total_invoices = @se.repo_size(:@invoices)
 
     @mean_merchant_items = average_items_per_merchant
     @mean_merchant_invoices = average_invoices_per_merchant
     @mean_item_price = average_item_price
   end
 
-  def average_items_per_merchant
-    numerator = @total_items.to_f
-    denominator = @se.merchants.all.length
-    (numerator/denominator).round(2)
-  end
-
-  def average_items_per_merchant_standard_deviation
-    squares = @se.merchants.all.map do |merchant|
-      (merchant.items.length - @mean_merchant_items) ** 2
-    end
-    Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
-  end
+#   def average_items_per_merchant_standard_deviation
+#     squares = @se.merchants.all.map do |merchant|
+#       (merchant.items.length - @mean_merchant_items) ** 2
+#     end
+#     Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
+#   end
 
   def merchants_with_high_item_count
     cutoff = @mean_merchant_items + average_items_per_merchant_standard_deviation

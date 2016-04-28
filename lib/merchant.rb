@@ -24,4 +24,8 @@ class Merchant
     @merchant_repository.find_customer_by_merchant_id(@id)
   end
 
+  def total_items
+    items.length
+  end
+
 end
