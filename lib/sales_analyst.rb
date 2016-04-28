@@ -118,7 +118,7 @@ class SalesAnalyst
     end.flatten
 
     revenue = paid_items.each_with_object(Hash.new(0)) do |invoice_item, count|
-      count[invoice_item.item_id] += 
+      count[invoice_item.item_id] +=
         (invoice_item.unit_price * invoice_item.quantity)
     end
 
