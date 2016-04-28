@@ -46,10 +46,6 @@ class SalesAnalystDaysTest < Minitest::Test
     assert days.include?(@sa.top_days_by_invoice_count[0])
   end
 
-  def test_find_unique_statuses
-    assert_equal [:pending, :shipped, :returned], @sa.find_statuses
-  end
-
   def test_grouping_invoices_by_status
     assert_kind_of Hash, @sa.group_invoices_by_status
   end

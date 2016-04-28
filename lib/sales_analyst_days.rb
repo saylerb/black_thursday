@@ -27,4 +27,24 @@ module SalesAnalystDays
     end
   end
 
+  def group_invoices_by_status
+    statuses    = [:pending, :shipped, :returned]
+    counts      = statuses.map { |status| @se.total_invoices_for_status(status) }
+    percentages = counts.map { |count| (count.to_f / @total_invoices) * 100 }
+    statuses.zip(percentages).to_h
+  end
+
+  def invoice_status(status)
+    group_invoices_by_status[status].round(2)
+  end
+
+  def total_revenue_by_date(date)
+    invoices_for_date = @se.all(:@invoices).find_all do |invoice|
+      invoice.created_at.to_date == date.to_date
+    end
+    invoices_for_date.reduce(BigDecimal.new(0)) do |total, invoice|
+      total += invoice.total; total
+    end
+  end
+
 end

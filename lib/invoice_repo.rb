@@ -51,13 +51,13 @@ class InvoiceRepo
     end
   end
 
-  # Connections:
+  def total_invoices_for_status(status)
+    find_all_by_status(status).length
+  end
 
   def find_merchant_by_merchant_id(merchant_id)
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
-
-#TODO: added this Sat night
 
   def find_items_by_invoice_id(invoice_id)
     @sales_engine.find_items_by_invoice_id(invoice_id)

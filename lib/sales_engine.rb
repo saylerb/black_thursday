@@ -80,6 +80,10 @@ class SalesEngine
     end
   end
 
+  def total_invoices_for_status(status)
+    @invoices.total_invoices_for_status(status)
+  end
+
   def find_total_dollar_amount_for_invoice(invoice_id)
 
     if is_invoice_paid_in_full?(invoice_id)
@@ -92,6 +96,7 @@ class SalesEngine
       0
     end
   end
+
 
   def repo_size(repo_name)
     self.instance_variable_get(repo_name).size

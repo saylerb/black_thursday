@@ -55,5 +55,13 @@ module SalesCalculator
   def invoice_standard_deviation
     standard_deviation(:total_invoices, :@merchants, @mean_merchant_invoices, @total_merchants)
   end
+ 
+  def invoices_per_day_standard_deviation
+    squares = count_invoices_by_day.map do |number|
+      (number - average_invoices_per_day) ** 2
+    end
+    Math.sqrt(squares.reduce(:+) / 6).round(2)
+  end
+
 
 end
