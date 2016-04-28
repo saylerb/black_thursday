@@ -36,6 +36,16 @@ class SalesEngine
     @items.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_total_number_of_items_for_merchant_id(merchant_id)
+    find_items_by_merchant_id(merchant_id).length
+  end
+
+  def find_total_dollar_amount_for_merchant_id(merchant_id)
+    find_items_by_merchant_id(merchant_id).reduce(0) do |sum, item|
+      sum += item.unit_price; sum
+    end
+  end
+
   def find_invoices_by_merchant_id(merchant_id)
     @invoices.find_all_by_merchant_id(merchant_id)
   end
@@ -91,4 +101,4 @@ class SalesEngine
     self.instance_variable_get(repo_name).all
   end
 
-
+end

@@ -88,11 +88,11 @@ class SalesEngineTest < Minitest::Test
 
 
   def test_if_i_can_get_size_of_each_repo
-    merchant_repo_size = se.repo_size(:merchants)
-    items_repo_size = se.repo_size(:items)
-    invoice_repo_size = se.repo_size(:invoices)
-    transaction_repo_size = se.repo_size(:transactions)
-    customers_repo_size = se.repo_size(:customers)
+    merchant_repo_size = se.repo_size(:@merchants)
+    items_repo_size = se.repo_size(:@items)
+    invoice_repo_size = se.repo_size(:@invoices)
+    transaction_repo_size = se.repo_size(:@transactions)
+    customers_repo_size = se.repo_size(:@customers)
 
     assert_kind_of Numeric, merchant_repo_size
     assert_equal 475, merchant_repo_size

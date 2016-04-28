@@ -33,20 +33,20 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_for_merchant(merchant_id)
-    total_items = @se.merchants.find_by_id(merchant_id).items.length
-    total_price = @se.merchants.find_by_id(merchant_id).items.reduce(0) do |sum, item|
-      sum += item.unit_price
-    end
-    (total_price / total_items).round(2)
-  end
+  # def average_item_price_for_merchant(merchant_id)
+  #   total_items = @se.merchants.find_by_id(merchant_id).items.length
+  #   total_price = @se.merchants.find_by_id(merchant_id).items.reduce(0) do |sum, item|
+  #     sum += item.unit_price
+  #   end
+  #   (total_price / total_items).round(2)
+  # end
 
-  def average_average_price_per_merchant
-    averages = @se.merchants.all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
-    (averages.reduce(:+) / @total_merchants).round(2)
-  end
+  # def average_average_price_per_merchant
+  #   averages = @se.merchants.all.map do |merchant|
+  #     average_item_price_for_merchant(merchant.id)
+  #   end
+  #   (averages.reduce(:+) / @total_merchants).round(2)
+  # end
 
   def golden_items
     price_std = price_standard_deviation
@@ -56,31 +56,31 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price
-    total = @se.items.all.map do |item|
-      item.unit_price
-    end
-    total.reduce(:+)/ @total_items
-  end
+  # def average_item_price
+  #   total = @se.items.all.map do |item|
+  #     item.unit_price
+  #   end
+  #   total.reduce(:+)/ @total_items
+  # end
 
-  def price_standard_deviation
-    squares = @se.items.all.map do |item|
-      (item.unit_price - @mean_item_price) ** 2
-    end
-    Math.sqrt(squares.reduce(:+) / (@total_items - 1)).round(2)
-  end
+  # def price_standard_deviation
+  #   squares = @se.items.all.map do |item|
+  #     (item.unit_price - @mean_item_price) ** 2
+  #   end
+  #   Math.sqrt(squares.reduce(:+) / (@total_items - 1)).round(2)
+  # end
 
-  def average_invoices_per_merchant
-    total_invoices = @se.invoices.all.length
-    (total_invoices.to_f / @total_merchants).round(2)
-  end
+  # def average_invoices_per_merchant
+  #   total_invoices = @se.invoices.all.length
+  #   (total_invoices.to_f / @total_merchants).round(2)
+  # end
 
-  def average_invoices_per_merchant_standard_deviation
-    squares = @se.merchants.all.map do |merchant|
-      (merchant.invoices.length - @mean_merchant_invoices) ** 2
-    end
-    Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
-  end
+  # def average_invoices_per_merchant_standard_deviation
+  #   squares = @se.merchants.all.map do |merchant|
+  #     (merchant.invoices.length - @mean_merchant_invoices) ** 2
+  #   end
+  #   Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
+  # end
 
   def top_merchants_by_invoice_count
     invoice_std = invoice_standard_deviation
@@ -90,12 +90,12 @@ class SalesAnalyst
     end
   end
 
-  def invoice_standard_deviation
-    squares = @se.merchants.all.map do |merchant|
-      (merchant.invoices.length - @mean_merchant_invoices) ** 2
-    end
-    Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
-  end
+  # def invoice_standard_deviation
+  #   squares = @se.merchants.all.map do |merchant|
+  #     (merchant.invoices.length - @mean_merchant_invoices) ** 2
+  #   end
+  #   Math.sqrt(squares.reduce(:+) / (@total_merchants - 1)).round(2)
+  # end
 
   def bottom_merchants_by_invoice_count
     invoice_std = invoice_standard_deviation

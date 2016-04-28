@@ -22,7 +22,6 @@ class MerchantRepo
     @all_merchants.length
   end
 
-
   def all
     @all_merchants
   end

@@ -51,6 +51,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_finds_avg_price_per_merchant
     assert_kind_of BigDecimal, @sa.average_item_price_for_merchant(12334165)
+    assert_equal 100, @sa.average_item_price_for_merchant(12334165).to_f
   end
 
   def test_it_finds_avg_avg_price_per_merchant

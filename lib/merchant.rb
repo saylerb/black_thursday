@@ -28,4 +28,8 @@ class Merchant
     items.length
   end
 
+  def total_invoices
+    invoices.length
+  end
+
 end
