@@ -19,6 +19,10 @@ class TransactionRepo
     result
   end
 
+  def size
+    @all_transactions.length
+  end
+
   def all
     @all_transactions
   end

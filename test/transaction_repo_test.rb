@@ -17,7 +17,7 @@ class TransactionRepoTest < Minitest::Test
 
   def test_if_it_can_load_all_transactions
     all_transactions = @repo.all
-    assert_kind_of Array, all_transactions 
+    assert_kind_of Array, all_transactions
     assert_equal 100, all_transactions.length #4985 in live data
   end
 
@@ -53,5 +53,4 @@ class TransactionRepoTest < Minitest::Test
     assert_equal 77, @repo.find_all_by_result("success").count
     assert_equal 23, @repo.find_all_by_result('failed').count
   end
-
- end
+end
